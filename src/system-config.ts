@@ -7,10 +7,33 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  redux: 'vendor/redux/dist/redux.js',
+  'ng2-redux': 'vendor/ng2-redux/lib',
+  '@angular2-material': 'vendor/@angular2-material'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'ng2-redux': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'index'
+  },
+  '@angular2-material/core': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'core.js'
+  },
+  '@angular2-material/card': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'card.js'
+  },  
+  '@angular2-material/button': {
+    format: 'cjs',
+    defaultExtension: 'js',
+    main: 'button.js'
+  },  
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -33,6 +56,8 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/workspaces/workspace-card',
+  'app/workspaces/workspace-list',
   /** @cli-barrel */
 ];
 
