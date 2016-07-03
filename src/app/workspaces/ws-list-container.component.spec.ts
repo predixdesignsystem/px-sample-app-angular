@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { WorkspaceListComponent } from './workspace-list.component';
+import { WsListContainerComponent } from './ws-list-container.component';
 
-describe('Component: WorkspaceList', () => {
+describe('Component: WsListContainer', () => {
   it('should create an instance', () => {
-    let component = new WorkspaceListComponent();
+    let component = new WsListContainerComponent();
     expect(component).toBeTruthy();
   });
 });

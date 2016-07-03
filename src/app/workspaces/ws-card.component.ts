@@ -4,7 +4,7 @@ import { MD_BUTTON_DIRECTIVES  } from '@angular2-material/button';
 
 @Component({
   moduleId: module.id,
-  selector: 'workspace-card',
+  selector: 'ws-card',
   template: `
     <md-card>
         <md-card-title>{{name}}</md-card-title>

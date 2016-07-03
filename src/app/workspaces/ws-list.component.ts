@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { WorkspaceCardComponent } from './workspace-card.component';
+import { WorkspaceCardComponent } from './ws-card.component';
 
 interface IWorkspace {
   name: string;
@@ -8,14 +8,14 @@ interface IWorkspace {
 
 @Component({
   moduleId: module.id,
-  selector: 'workspace-list',
+  selector: 'ws-list',
   template: `
     <div class="container">
-      <workspace-card *ngFor="let workspace of workspaces"
+      <ws-card *ngFor="let workspace of workspaces"
         name={{workspace.name}}
         totalObjects={{workspace.totalObjects}} 
       >
-      </workspace-card>
+      </ws-card>
     </div>
   `,
   styles: [`
@@ -29,7 +29,7 @@ interface IWorkspace {
       align-items: flex-start;
       overflow-y: auto;
     }
-    workspace-card {
+    ws-card {
      width: 350px;
      margin: 5px 5px;
     }`],

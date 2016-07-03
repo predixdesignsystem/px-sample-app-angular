@@ -1,2 +1,3 @@
-export * from './workspace-card.component';
-export * from './workspace-list.component';
+export * from './ws-card.component';
+export * from './ws-list.component';
+export * from './ws-list-container.component';

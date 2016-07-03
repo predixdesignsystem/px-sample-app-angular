@@ -10,11 +10,11 @@ import {
   async, inject
 } from '@angular/core/testing';
 
-import { WorkspaceCardComponent } from './workspace-card.component';
+import { WorkspaceListComponent } from './ws-list.component';
 
-describe('Component: WorkspaceCard', () => {
+describe('Component: WorkspaceList', () => {
   it('should create an instance', () => {
-    let component = new WorkspaceCardComponent();
+    let component = new WorkspaceListComponent();
     expect(component).toBeTruthy();
   });
 });
