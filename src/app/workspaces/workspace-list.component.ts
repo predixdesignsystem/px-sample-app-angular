@@ -1,14 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
 import { WorkspaceCardComponent } from './workspace-card.component';
+
+interface IWorkspace {
+  name: string;
+  totalObjects: number;
+};
 
 @Component({
   moduleId: module.id,
   selector: 'workspace-list',
   template: `
     <div class="container">
-      <workspace-card name='Test Workspace' totalObjects='200'>
-      </workspace-card>
-      <workspace-card name='Test2 Workspace' totalObjects='200'>
+      <workspace-card *ngFor="let workspace of workspaces"
+        name={{workspace.name}}
+        totalObjects={{workspace.totalObjects}} 
+      >
       </workspace-card>
     </div>
   `,
@@ -33,9 +39,13 @@ import { WorkspaceCardComponent } from './workspace-card.component';
 })
 export class WorkspaceListComponent implements OnInit {
 
+  @Input() workspaces: IWorkspace[];
+
   constructor() {}
 
+
   ngOnInit() {
+    console.log(this.workspaces);
   }
 
 }

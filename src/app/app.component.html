@@ -1,4 +1,9 @@
 <h1>
   {{title}}
-  <workspace-list></workspace-list>
+  <workspace-list
+    [workspaces]="
+      [ { name: 'ws1', totalObjects: 200 },
+        { name: 'ws2', totalObjects: 300 }
+      ]"
+  ></workspace-list>
 </h1>

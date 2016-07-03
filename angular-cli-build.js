@@ -20,7 +20,20 @@ module.exports = function(defaults) {
       'redux/dist/redux.js',
       'ng2-redux/lib/**/*.+(js|js.map)',
       // angular material
-      '@angular2-material/**/*.js'
+      '@angular2-material/**/*.js',
+      // redux-api-middleware and its dependencies !
+      'redux-api-middleware/lib/**/*.+(js|js.map)',
+      'babel-runtime/**/*.+(js|js.map)',
+      'regenerator-runtime/*.+(js|js.map)',
+      'node-fetch/**/*.+(js|js.map)',
+      'lodash.isplainobject/*.+(js|js.map)',
+      'lodash._basefor/*.+(js|js.map)',
+      'lodash.isarray/*.+(js|js.map)',
+      'lodash.isarguments/*.+(js|js.map)',
+      'lodash.keysin/*.+(js|js.map)',
+      'isomorphic-fetch/*.+(js|js.map)',
+      'whatwg-fetch/*.+(js|js.map)',
+      'core-js/**/*.+(js|js.map)'
     ]
   });
 };
