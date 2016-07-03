@@ -23,7 +23,9 @@ const map: any = {
   'isomorphic-fetch': 'vendor/isomorphic-fetch',
   'whatwg-fetch': 'vendor/whatwg-fetch/fetch.js',
   'core-js': 'vendor/core-js',
-  'node-fetch': 'vendor/node-fetch'
+  'node-fetch': 'vendor/node-fetch',
+  // redux-thunk
+  'redux-thunk': 'vendor/redux-thunk/dist/redux-thunk.js'
 };
 
 /** User packages configuration. */
@@ -105,6 +107,10 @@ const packages: any = {
     defaultExtension: 'js',
     main: 'index.js'
   },
+  'redux-thunk': {
+    format: 'cjs',
+    defaultExtension: 'js'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

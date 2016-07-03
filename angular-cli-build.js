@@ -33,7 +33,9 @@ module.exports = function(defaults) {
       'lodash.keysin/*.+(js|js.map)',
       'isomorphic-fetch/*.+(js|js.map)',
       'whatwg-fetch/*.+(js|js.map)',
-      'core-js/**/*.+(js|js.map)'
+      'core-js/**/*.+(js|js.map)',
+      // redux-thunk
+      'redux-thunk/dist/*.+(js|js.map)'
     ]
   });
 };
