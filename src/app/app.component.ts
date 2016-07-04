@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { WsListContainerComponent } from './workspaces/ws-list-container.component';
 import { NgRedux } from 'ng2-redux';
 import workspaceManager from './redux/workspacesReducer';
+import { environment } from './environment';
 
 // TypeScript appears to not be able yet to import untyped JS modules, so require instead
 // import { apiMiddleware } from 'redux-api-middleware';
@@ -22,6 +23,26 @@ export class AppComponent {
   title = 'app works!';
 
   constructor(private ngRedux: NgRedux<IAppState>) {
-    this.ngRedux.configureStore(workspaceManager, {}, [ thunk, apiMiddleware ]);
+
+    let enhancers = [];
+    if (!environment.production) {
+      const env: any = window || this;
+      if (env.devToolsExtension) {
+        enhancers = [ ...enhancers, env.devToolsExtension() ];
+      }
+    }
+
+    const wsmgrInitialState = {
+
+      selectedWorkspace: undefined,
+      isFetching: false,
+      didInvalidate: true,  // shouldFetch (including the initial one) relies on lack of this key to request ...
+      lastUpdated: 0,
+      filter: '',
+
+      workspaces: {}
+    };
+
+    this.ngRedux.configureStore(workspaceManager, wsmgrInitialState, [ thunk , apiMiddleware ], enhancers);
   }
 }
