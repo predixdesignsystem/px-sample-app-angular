@@ -3,7 +3,6 @@ import { WorkspaceListComponent } from './ws-list.component';
 
 import { AsyncPipe } from '@angular/common';
 import { Observable } from 'rxjs/Rx';
-// import { IntervalObservable } from 'rxjs/Observable/IntervalObservable';
 
 import { NgRedux, select } from 'ng2-redux';
 import { createWorkspace, openWorkspace, deleteWorkspace, wsListFilterChange,

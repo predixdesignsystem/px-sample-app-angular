@@ -32,6 +32,7 @@ export class AppComponent {
       }
     }
 
+    // TODO: move redux configuration (and initial store state) elsewhere
     const wsmgrInitialState = {
 
       selectedWorkspace: undefined,
