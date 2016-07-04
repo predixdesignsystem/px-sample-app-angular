@@ -1,5 +1,27 @@
-import { Component, OnInit, Input, Output } from '@angular/core';
+import { Component, OnInit, Input, Output, Pipe, PipeTransform } from '@angular/core';
 import { WorkspaceCardComponent } from './ws-card.component';
+
+@Pipe({ name: 'mapToIterable' })
+export class MapToIterable implements PipeTransform {
+
+  transform(obj: any): any[] {
+    let result = [];
+
+    if (obj.entries) {
+      for (const [key, value] of obj.entries()) {
+        result.push({ key, value });
+      }
+    } else {
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          result.push({ key, value: obj[key] });
+        }
+      }
+    }
+
+    return result;
+  }
+}
 
 interface IWorkspace {
   name: string;
@@ -11,9 +33,11 @@ interface IWorkspace {
   selector: 'ws-list',
   template: `
     <div class="container">
-      <ws-card *ngFor="let workspace of workspaces"
-        name={{workspace.name}}
-        totalObjects={{workspace.totalObjects}} 
+      <!-- TODO: knows too much about store shape, move selectors closer to reducers --> 
+      <ws-card *ngFor="let wskv of workspaces | mapToIterable"
+        ws={{wskv.key}}
+        name={{wskv.value.name}}
+        totalObjects={{wskv.value.state?.objectCount}} 
       >
       </ws-card>
     </div>
@@ -34,7 +58,8 @@ interface IWorkspace {
      margin: 5px 5px;
     }`],
 
-  directives: [WorkspaceCardComponent]
+  directives: [WorkspaceCardComponent],
+  pipes: [MapToIterable]
 
 })
 export class WorkspaceListComponent implements OnInit {
@@ -43,9 +68,8 @@ export class WorkspaceListComponent implements OnInit {
 
   constructor() {}
 
-
   ngOnInit() {
-    console.log(this.workspaces);
   }
 
+//  totalObjects = (ws) => (ws.)
 }

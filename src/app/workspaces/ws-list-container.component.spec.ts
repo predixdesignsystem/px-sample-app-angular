@@ -12,9 +12,13 @@ import {
 
 import { WsListContainerComponent } from './ws-list-container.component';
 
+/* find how to inject NgRedux
+
 describe('Component: WsListContainer', () => {
   it('should create an instance', () => {
     let component = new WsListContainerComponent();
     expect(component).toBeTruthy();
   });
 });
+
+*/
