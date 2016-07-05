@@ -14,9 +14,9 @@ import { createWorkspace, openWorkspace, deleteWorkspace, wsListFilterChange,
   selector: 'ws-list-container',
   directives: [WorkspaceListComponent],
   template: `
-    <ws-list
-      [workspaces]="workspaces$ | async"
-    ></ws-list>
+    Workspaces:
+    <ws-list [workspaces]="workspaces$ | async">
+    </ws-list>
   `,
   styles: []
 })
@@ -47,9 +47,9 @@ export class WsListContainerComponent implements OnInit {
       .first((wss) => Object.keys(wss).length !== 0)
       .subscribe(wss => {
         this.refreshStats(Object.keys(wss));
-        Observable.interval(30000).subscribe(() =>
-          this.refreshStats(this.latestWsIds)
-        );
+//      Observable.interval(30000).subscribe(() =>
+//        this.refreshStats(this.latestWsIds)
+//        );
     });
   }
 

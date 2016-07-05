@@ -35,7 +35,9 @@ module.exports = function(defaults) {
       'whatwg-fetch/*.+(js|js.map)',
       'core-js/**/*.+(js|js.map)',
       // redux-thunk
-      'redux-thunk/dist/*.+(js|js.map)'
+      'redux-thunk/dist/*.+(js|js.map)',
+      // @vaadin/angular2-polymer
+      '@vaadin/**/*.+(js|js.map)'
     ]
   });
 };

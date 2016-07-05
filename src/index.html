@@ -14,18 +14,28 @@
 <body>
   <app-root>Loading...</app-root>
 
-  
+
 
     {{#each scripts.polyfills}}
     <script src="{{.}}"></script>
     {{/each}}
+
+    <!-- Polymer elements integration; follows the pattern at
+      https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html
+      - load web components polyfill and all used elements
+      - wait for WebComponentsReady event before bootstrap -->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link rel="import" href="elements.html">
+
     <script>
-      System.import('system-config.js').then(function () {
-        System.import('main');
-      }).catch(console.error.bind(console));
+      document.addEventListener('WebComponentsReady', function() {
+        System.import('system-config.js').then(function () {
+          System.import('main');
+        }).catch(console.error.bind(console));
+      });
     </script>
 
-  
+    
 
 </body>
 </html>

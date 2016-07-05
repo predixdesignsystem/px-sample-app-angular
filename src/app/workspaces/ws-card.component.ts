@@ -1,20 +1,21 @@
-import { Component, Input, Output, OnInit } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { MD_CARD_DIRECTIVES  } from '@angular2-material/card';
 import { MD_BUTTON_DIRECTIVES  } from '@angular2-material/button';
+// import { PolymerElement } from '@vaadin/angular2-polymer';
 
 @Component({
   moduleId: module.id,
   selector: 'ws-card',
-  template: `
-    <md-card>
-        <md-card-title>{{name}}</md-card-title>
-        <md-card-subtitle>{{totalObjectsString()}}</md-card-subtitle>
-        <button md-button (click)="onOpenClick()" color="primary">OPEN</button>
-        <button md-button (click)="onDeleteClick()">DELETE</button>
-    </md-card>`,
-  directives: [MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES],
+  templateUrl: 'ws-card.component.html',
+  directives: [
+    // Angular Material
+    MD_CARD_DIRECTIVES, MD_BUTTON_DIRECTIVES,
+    // Polymer
+    // PolymerElement('paper-card'),
+    // PolymerElement('paper-button'),
+  ]
 })
-export class WorkspaceCardComponent implements OnInit {
+export class WorkspaceCardComponent {
 
   @Input() name: string;
   @Input() totalObjects: string;
@@ -24,11 +25,5 @@ export class WorkspaceCardComponent implements OnInit {
   totalObjectsString = () =>
       this.totalObjects === undefined || this.totalObjects === '' ? '?' :
       this.totalObjects === '0' ? 'Empty' :
-      this.totalObjects;
-
-  constructor() {}
-
-  ngOnInit() {
-  }
-
+      this.totalObjects + ' objects';
 }

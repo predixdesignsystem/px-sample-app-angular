@@ -30,7 +30,9 @@ const map: any = {
   'core-js': 'vendor/core-js',
   'node-fetch': 'vendor/node-fetch',
   // redux-thunk
-  'redux-thunk': 'vendor/redux-thunk/dist/redux-thunk.js'
+  'redux-thunk': 'vendor/redux-thunk/dist/redux-thunk.js',
+  // vaddin/angular2-polymer
+  '@vaadin': 'vendor/@vaadin'
 };
 
 /** User packages configuration. */
@@ -115,6 +117,11 @@ const packages: any = {
   'redux-thunk': {
     format: 'cjs',
     defaultExtension: 'js'
+  },
+  // vaadin
+  '@vaadin/angular2-polymer': {
+    defaultExtension: 'js',
+    main: 'index.js'
   }
 };
 

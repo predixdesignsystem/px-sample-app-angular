@@ -1,0 +1,19 @@
+{
+  "name": "uing",
+  "description": "NMM UI (Angular 2)",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "paper-card": "polymerelements/paper-card#^1.1.1",
+    "paper-button": "polymerelements/paper-button#^1.0.12"
+  }
+}
