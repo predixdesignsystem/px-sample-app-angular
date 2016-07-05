@@ -37,6 +37,7 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
+
   'ng2-redux': {
     format: 'cjs',
     defaultExtension: 'js',
@@ -134,6 +135,7 @@ const barrels: string[] = [
   '@angular/core',
   '@angular/common',
   '@angular/compiler',
+  '@angular/forms',
   '@angular/http',
   '@angular/router',
   '@angular/platform-browser',
@@ -145,8 +147,7 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
-  'app/workspaces/workspace-card',
-  'app/workspaces/workspace-list',
+  'app/workspaces',
   /** @cli-barrel */
 ];
 
