@@ -37,7 +37,6 @@ const map: any = {
 
 /** User packages configuration. */
 const packages: any = {
-
   'ng2-redux': {
     format: 'cjs',
     defaultExtension: 'js',
