@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, Pipe, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, Pipe, PipeTransform } from '@angular/core';
 import { WorkspaceCardComponent } from './ws-card.component';
 
 @Pipe({ name: 'mapToIterable' })
@@ -70,6 +70,4 @@ export class WorkspaceListComponent implements OnInit {
 
   ngOnInit() {
   }
-
-//  totalObjects = (ws) => (ws.)
 }
