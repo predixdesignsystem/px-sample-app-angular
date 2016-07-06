@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { WsListContainerComponent } from './workspaces/ws-list-container.component';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 import { NgRedux } from 'ng2-redux';
 import workspaceManager from './redux/workspacesReducer';
 import { environment } from './environment';
@@ -17,10 +17,9 @@ interface IAppState {}
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.css'],
-  directives: [WsListContainerComponent]
+  directives: [ROUTER_DIRECTIVES]
 })
 export class AppComponent {
-  title = 'app works!';
 
   constructor(private ngRedux: NgRedux<IAppState>) {
 
