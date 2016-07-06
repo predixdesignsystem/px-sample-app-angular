@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Pipe, PipeTransform } from '@angular/core';
 import { WorkspaceCardComponent } from './ws-card.component';
 
+// TODO: move out
 @Pipe({ name: 'mapToIterable' })
 export class MapToIterable implements PipeTransform {
 
