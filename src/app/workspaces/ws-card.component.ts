@@ -33,8 +33,6 @@ export class WorkspaceCardComponent {
     private router: Router
   ) {};
 
-
-
   totalObjectsString = () =>
       this.totalObjects === undefined || this.totalObjects === '' ? '?' :
       this.totalObjects === '0' ? 'Empty' :
