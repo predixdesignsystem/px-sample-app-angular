@@ -1,3 +1,28 @@
 <p>
   ws-page works! (Workspace id: {{id}})
 </p>
+
+<md-tab-group class="demo-tab-group">
+
+  <md-tab *ngFor="let tab of tabs">
+    <template md-tab-label>{{tab.label}}</template>
+    <template md-tab-content>
+      {{tab.content}}
+    </template>
+  </md-tab>
+
+  <md-tab>
+    <template md-tab-label>Bus View</template>
+    <template md-tab-content>
+      Bus View Content ...
+    </template>
+  </md-tab>    
+
+  <md-tab>
+    <template md-tab-label>Dev</template>
+    <template md-tab-content>
+      Dev Content ...
+    </template>
+  </md-tab>    
+
+</md-tab-group>
