@@ -43,11 +43,12 @@ export class WsListContainerComponent implements OnInit {
       this.latestWsIds = Object.keys(workspaces));
 
     // get totalObjects for each workspace, on first non-empty refresh and then periodically
+    // TODO: consider refactoring with redux-observable
     this.workspaces$
       .first((wss) => Object.keys(wss).length !== 0)
-      .subscribe(wss => {
+      .forEach(wss => {
         this.refreshStats(Object.keys(wss));
-//      Observable.interval(30000).subscribe(() =>
+//      Observable.interval(30000).forEach(() =>
 //        this.refreshStats(this.latestWsIds)
 //        );
     });

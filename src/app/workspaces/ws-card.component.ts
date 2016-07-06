@@ -23,11 +23,14 @@ export class WorkspaceCardComponent {
   @Input() totalObjects: string;
 
   @Output() onOpenClick = () => {
-     console.log('OPEN clicked');
-     this.router.navigate(['/workspace', this.name]);
-    }
+    // TODO: move navigation out of component (Redux action?)
+    // TODO: Router + Redux integration
+    this.router.navigate(['/workspace', this.name]);
+  }
 
-  @Output() onDeleteClick = () => { console.log('DELETE clicked'); }
+  @Output() onDeleteClick = () => {
+     console.log('DELETE clicked');
+  }
 
   constructor(
     private router: Router
