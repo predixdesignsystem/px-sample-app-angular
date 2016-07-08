@@ -23,7 +23,12 @@
     <!-- Polymer elements integration; follows the pattern at
       https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html
       - load web components polyfill and all used elements
-      - wait for WebComponentsReady event before bootstrap -->
+      - wait for WebComponentsReady event before bootstrap
+
+      Note: this won't work in -prod (production) deployment
+      until angular/angular-cli#540 is fixed'  
+     -->
+
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <link rel="import" href="elements.html">
 
