@@ -1,0 +1,269 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="cimnet-data.html">
+<link rel="import" href="bus-tree.html">
+
+<!--
+<script src="../busview-library.js"></script>
+-->
+<script>
+    // TODO: check if double-loading system-config.js here is of any consequence ...
+    System.import('system-config.js').then(function () {
+        System.import('../app/busviewscripts/library').then(function(exports){ 
+            // convert exports to globals
+            // TODO: find a way to do this via SystemJs config, or 
+            //       get rid of use of globals altogether
+            for(var exp in exports) {
+                if( exports.hasOwnProperty(exp) ) {
+                    this[exp] = exports[exp];
+                }
+            }
+        })
+    });
+</script>
+
+<link href="../bower_components/paper-item/paper-item.html" rel="import">
+<link href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html" rel="import">
+<link href="../bower_components/paper-menu/paper-menu.html" rel="import">
+<link href="../bower_components/paper-button/paper-button.html" rel="import">
+<link href="../bower_components/paper-listbox/paper-listbox.html" rel="import">
+<link href="../bower_components/paper-styles/paper-styles.html" rel="import">
+<link rel="import" href="../styles/bus-test-styles.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/vaadin-combo-box/vaadin-combo-box.html">
+
+<dom-module id="bus-view">
+    <template>
+        <style include="bus-test-styles"></style>
+        <style is="custom-style">
+             paper-item {
+                --paper-item: {
+                    cursor: pointer;
+                };
+                --paper-item-min-height: 26px;
+                font-size: 14px;
+                padding: 0 16px 0 0;
+             }
+             iron-selector > * {
+                padding: 8px;
+             }            
+             .horizontal-section-container {
+                @apply(--layout-horizontal);
+             }      
+             .horizontal-section {
+                padding: 0 12px;
+             }     
+             .iron-selected {
+              background-color: #4885ed;
+              color: white;
+             }
+             .flex-wrap {
+                @apply(--layout-horizontal);
+                @apply(--layout-wrap);
+             }             
+        </style>
+		<cimnet-data id="dataAccessor"></cimnet-data>
+		<div class="horizontal-section-container">
+			<div class="horizontal-section div-on-left">
+              <div class="vertical-section-container">
+                <div class="vertical-section font-subtitle">[[searchTitle]]              
+                    <vaadin-combo-box class="" label="[[stationCaption]]" items=[[stations]]
+                     item-label-path="name" item-value-path="ID" on-selected-item-changed="stationValueSelected"
+                     on-vaadin-dropdown-opened="loadDataIfNeeded"></vaadin-combo-box>
+                    <paper-button id="allNodes" class="hidden" style='text-align:left' 
+                    on-click="showAllBusDiagrams">[[allBusesCaption]]</paper-button>
+                    <paper-listbox id="avail-list" on-iron-select="busSelected"
+                            attr-for-selected="value" class="list">
+                        <template is="dom-repeat" id="avail-list-items" items="[[buses]]">
+                            <paper-item value="[[item.ID]]">
+                                [[item.Container]] | [[item.name]]
+                            </paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+                <div class="vertical-section font-subtitle lowerList">
+                    <div>
+                        <span class="closeable-list-item">[[openedTitle]]</span>
+                        <paper-button class="closeBtn hidden" id="closeAllBtn"
+                            on-click="closeAllBusDiagram">X All<paper-button>
+                    </div>
+                    <paper-listbox id="opened-list" on-iron-select="busSelected"
+                            attr-for-selected="value" class="list" selected="[[openListSelection]]">
+                        <template is="dom-repeat" id="opened-list-items" items="[[shownBuses]]">
+                            <paper-item value="[[item.ID]]" style="no-wrap:true">
+                                <span class="closeable-list-item">
+                                    [[item.Substation]] | [[item.Container]] | [[item.name]]
+                                </span>
+                                <paper-button class="closeBtn"
+                                 on-click="closeBusDiagram">X<paper-button>
+                            </paper-item>
+                        </template>
+                    </paper-listbox>
+                </div>
+              </div>
+			</div>
+			<div id="buses-container" class="horizontal-section div-on-right"></div>
+		</div>				
+	</template>
+    
+    <script>
+        Polymer({
+            is: "bus-view",			
+            properties: {
+                configUrl : String,
+				workspaceId: {
+                    type: String,
+					observer: 'populateData'
+                },
+                openAt: {
+					type: Object,
+ 					observer: 'initializeWithBus',
+					value: null					
+                }
+            },
+			//
+			ready: function() {
+                this.configUrl = '../config/BusesGadget.json';
+                // localization
+                this.searchTitle = BUS_VIEW.getStringResource("searchBusCaption");
+                this.openedTitle = BUS_VIEW.getStringResource("openedBusesCaption")
+                this.stationCaption = BUS_VIEW.getStringResource("stationsCaption");
+                this.allBusesCaption = BUS_VIEW.getStringResource("allBusesCaption");
+                
+				BUS_VIEW.clearBusDiagrams();
+                BUS_VIEW.setBusDrawnCallback("busView", this.onDiagramShown.bind(this));
+                BUS_VIEW.setCloseCallback(this.onDiagramShown.bind(this));
+            },
+            
+            detached: function() {
+                BUS_DA.clearBusModel();
+            },
+            
+            populateData: function() {
+				if (this.workspaceId) {
+					BUS_DA.populateBuses(this.$.dataAccessor, this.workspaceId, this.configUrl,
+                        this.busListReady.bind(this));
+                }
+            },
+			
+			initializeWithBus: function() {
+                if (this.openAt && this.openAt.busId) {
+                    if (!this.isDataLoaded()) {
+                        this.populateData()
+                    } else {
+                        this.focusOnOpenAtBus()
+                    }
+				}
+			},
+            
+            focusOnOpenAtBus: function() {
+                const openAt = this.openAt
+                if (openAt) {
+                    const busId = openAt.busId
+                    if (busId && busId !== 'undefined') {
+                        BUS_VIEW.clearBusDiagrams();
+                        BUS_VIEW.showSelectedBusDiagram(busId);
+                        this.clearListSelections()
+                        const terminalId = openAt.terminalId
+                        if (terminalId && terminalId != 'undefined') {
+                            BUS_VIEW.focusOnTerminal(terminalId)
+                        }
+                    }
+                }
+            },
+			
+			// Callback invoked when the buses are populated.
+            busListReady: function() {
+                // Populate the Stations listbox with result.
+                this.stations = BUS_DA.getSubstations().sort()
+                BUS_VIEW.setBusConfig(BUS_DA.getBusModelSpec())
+                // Check if there's a OpenAt (navigate to specific Bus)
+                // in "queue" to be processed after data is populated.
+                this.focusOnOpenAtBus()
+			},
+            
+            isDataLoaded: function() {
+                return this.stations && this.stations.length > 0
+            },
+						
+			stationValueSelected: function(e) {
+				let selectedItemValue = e.detail.value;
+				if (selectedItemValue) {
+				    const lookupAttrib = e.target.getAttribute('item-value-path');
+                    this.buses = BUS_VIEW.getAvailBusesInStation(selectedItemValue[lookupAttrib]);
+                    this.shownBuses = BUS_VIEW.getRenderedBuses();
+                    // Enable All?  If re-vist, then No!
+                    let allNodesBtn = document.getElementById("allNodes");
+                    allNodesBtn.setAttribute("class", "shown");
+                    allNodesBtn.removeAttribute("disabled");
+               }
+			},
+			
+			// For paper-list...
+			busSelected: function(e) {
+				let selectedItem = e.target.selectedItem;
+				this.showBusDiagram(selectedItem.value);
+			},
+            
+            onDiagramShown: function() {
+                this.buses = BUS_VIEW.getAvailableBuses();
+                this.shownBuses = BUS_VIEW.getRenderedBuses();
+                // All in the avail list
+                STATION_BUSES.setAllEnabledState();
+                // Close All in "Currently Opened" list
+                this.setRemoveAllVisibility();
+            },
+            
+            setRemoveAllVisibility: function() {
+                let closeAllButton = document.getElementById('closeAllBtn')
+                if (this.shownBuses.length > 1) {
+                    closeAllButton.classList.remove('hidden')
+                    closeAllButton.classList.add('shown')
+                } else {
+                    closeAllButton.classList.remove('shown')
+                    closeAllButton.classList.add('hidden')
+                }
+            },
+            
+            showBusDiagram: function(busId) {
+                if (busId) {
+                    BUS_VIEW.showSelectedBusDiagram(busId);
+                    this.clearListSelections();
+                }
+            },
+            
+            clearListSelections: function() {              
+                let availList = document.getElementById("avail-list");
+                availList.selected = -1;
+                let openedList = document.getElementById("opened-list");
+                openedList.selected = -1;
+            },
+/*			
+            handleQueryResult: function(e) {
+                BUS_DA.handleQueryResults(e);        			
+            },
+*/            
+            showAllBusDiagrams: function() {
+                let nodesList = document.getElementById("avail-list");
+                STATION_BUSES.showAllBusDiagrams(nodesList.items);
+            },
+            
+            closeBusDiagram: function(e) {
+                let busId = e.target.parentElement.value;
+                BUS_VIEW.closeBusDiagram(busId);
+/*                this.fire("test");
+*/            },
+
+            closeAllBusDiagram: function(e) {
+                BUS_VIEW.closeAllBusDiagrams();
+            },
+            
+            loadDataIfNeeded: function() {
+                if (!this.isDataLoaded()) {
+                    this.populateData()
+                }
+            }
+
+        })
+    </script>
+    
+</dom-module>

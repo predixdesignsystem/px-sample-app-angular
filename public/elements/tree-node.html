@@ -1,0 +1,117 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../styles/bus-tree-styles.html">
+
+<dom-module id="tree-node">
+    <template>
+        <style include="bus-tree-styles">
+			.arrow {
+			  width: 12px;
+              height: 12px;
+			  margin-right: 4px;
+			}
+		</style>
+		<style is="custom-style">			            
+            .vertical-section-container {
+              @apply(--layout-vertical);
+            }
+            .horizontal-section-container {
+              @apply(--layout-horizontal);
+            }
+            .horizontal-section {
+              padding: 0 6px;
+            }
+		</style>
+		<div class="horizontal-section-container">
+			<div class="vertical-section-container horizontal-section">
+				<template  is="dom-repeat" items="{{formattedValues}}">
+					<div class="horizontal-section-container">
+                        <template is="dom-if" if="[[!hasViolations]]">
+                            <img class="arrow" src="[[item.arrowSrc]]"/>
+                            <label class="smallLabel vertical-section">[[item.visual]]</label>
+                        </template>
+                        <template is="dom-if" if="[[hasViolations]]">
+                            <img class="arrow" src="[[item.arrowSrc]]"/>
+                            <label class="smallLabel vertical-section has-violations-value">[[item.visual]]</label>
+                        </template>
+					</div>
+				</template>
+			</div>
+			<template is="dom-if" if="[[link]]">
+				<paper-button on-click="navigateTo" title="[[link.tooltip]]" class="nodeLink horizontal-section">[[link.linkText]]</paper-button> <!--id="link-btn" nolink class="hidden"></paper-button-->
+			</template>
+		</div>
+    </template>
+    
+    <script>
+        Polymer({
+            is: "tree-node",
+            properties: {
+                values: {
+                    type: Array,
+                    value: function() { return []},
+					observer: 'formatValues'
+                },
+                link: {
+					type: Object,
+					value: null
+				},
+                isOnRight: Boolean,
+                hasViolations: {
+                    type: Boolean,
+                    value: false
+                }
+            },
+			
+			observers: [
+				'formatValues(values, link, isOnRight, hasViolations)'
+			],
+            
+		    // Example: [{"value": [number], "decimalDigits": "2", "signToArrow": "true", "unit": "MW", "isAlerted": "false"},...], "link-caption": [otherNodeName], "link-value": [mRID]};
+			formatValues: function() {
+                let formattedValues = [];
+                for (valSpec of this.values) {
+                    let val = valSpec.value;
+                    let formattedVal = val;
+                    let visualItem = new Object();
+                    //if (isNumber(formattedVal)) {
+                        if (valSpec.decimalDigits) {
+                            formattedVal = Math.abs(parseFloat(formattedVal).toFixed(valSpec.decimalDigits));
+                        }
+                        if (valSpec.signToArrow) {
+                            if (val >= 0 && this.isOnRight || val < 0 && !this.isOnRight) {
+                                if (this.hasViolations) {
+                                    visualItem.arrowSrc = "/images/rightArrow_v.png";
+                                } else {
+								    visualItem.arrowSrc = "/images/rightArrow.png";
+                                }
+                                //formattedVal = formattedVal; // right arrow.  \u27A1\u1F826\u279E
+                            } else if (val < 0 && this.isOnRight || val >= 0 && !this.isOnRight) {
+                                if (this.hasViolations) {
+                                    visualItem.arrowSrc = "/images/leftArrow_v.png";
+                                } else {
+								    visualItem.arrowSrc = "/images/leftArrow.png";
+                                }
+                                //formattedVal = formattedVal;  // Left arrow.\u1F824\u2190\u2192
+                            }
+                        }
+                    //}
+                    if (valSpec.unit) {
+                        formattedVal = formattedVal + " " + valSpec.unit;
+                    }
+                    visualItem.visual = formattedVal;
+					
+                    formattedValues.push(visualItem);
+                }
+				if (formattedValues.length > 0) {
+					this.formattedValues = formattedValues;
+                }
+            },
+
+            navigateTo: function() {
+                console.log("Navigating to: " + this.link.linkValue);
+                this.fire('navigate', {toId:this.link.linkValue});
+            }
+		})
+    </script>
+</dom-module>

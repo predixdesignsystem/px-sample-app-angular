@@ -1,0 +1,37 @@
+<manifest alg="2" build="2015.1.2.344" opt="false" iceEnabled="true" iceMarkupVersion="2" iceEnabledOptions="link,responsive" exportTarget="other" domain="NMMSplash.com" resolutions="1x" timestamp="1464041562331">
+  <folder name="css">
+    <file name="site_global.css" crc="4031479542"/>
+    <file name="index.css" crc="503291168" ref="index"/>
+    <file name="nomq_index.css" crc="10746818" ref="index"/>
+  </folder>
+  <folder name="scripts">
+    <file name="jquery-1.8.3.min.js" crc="207176553" ref="index"/>
+    <file name="museutils.js" crc="3790713428" ref="index"/>
+    <file name="whatinput.js" crc="84559013" ref="index"/>
+    <file name="pie.js" crc="3827607177" ref="index"/>
+    <file name="jquery.musepolyfill.bgsize.js" crc="3918880840" ref="index"/>
+    <file name="jquery.watch.js" crc="4244854265" ref="index"/>
+    <file name="jquery.museresponsive.js" crc="3895133147" ref="index"/>
+  </folder>
+  <folder name="images">
+    <file name="u2066-8.png" crc="265736074" ref="index"/>
+    <file name="u3431-4.png" crc="319220586" ref="index"/>
+    <file name="u3435-4.png" crc="4006567236" ref="index"/>
+    <file name="ge_motion.png" crc="3850217697" seo="true" ref="index"/>
+    <file name="hipa marc lamey 7479b.jpg" crc="332085238" ref="index"/>
+    <file name="u2066-82.png" crc="4193220682" ref="index"/>
+    <file name="u3431-42.png" crc="3875475119" ref="index"/>
+    <file name="u3435-42.png" crc="449437798" ref="index"/>
+    <file name="ge_motion653x219.png" crc="3840551222" seo="true" ref="index"/>
+    <file name="u2066-83.png" crc="225456783" ref="index"/>
+    <file name="u3431-43.png" crc="3922989117" ref="index"/>
+    <file name="u3435-43.png" crc="518173729" ref="index"/>
+    <file name="ge_motion465x156.png" crc="4126173852" seo="true" ref="index"/>
+    <file name="u2066-84.png" crc="225456783" ref="index"/>
+    <file name="u3431-44.png" crc="3922989117" ref="index"/>
+    <file name="u3435-44.png" crc="518173729" ref="index"/>
+    <file name="hipa marc lamey 7479b960x759.jpg" crc="3992727472" ref="index"/>
+    <file name="blank.gif" crc="4208392903" ref="index"/>
+  </folder>
+  <file name="index.html" crc="4188866460" seo="true" mt="1464041498774" redirect="true"/>
+</manifest>

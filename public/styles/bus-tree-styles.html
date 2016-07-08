@@ -1,0 +1,222 @@
+<!--link rel="import" href="../bower_components/polymer/polymer.html"-->
+            
+<dom-module id="bus-tree-styles">
+  <tempalte>
+    <!--To create less space between title line and the first right node
+        use:                   
+            .tree ul {
+              display:inline;
+              padding: 0;
+            }
+    -->
+    <style>
+            .tree {
+              margin-left: 220px;
+              position: relative;
+              width: 390px;
+            }
+                        
+            .tree, .tree ul {
+              list-style-type: none;              
+            }
+            
+            .tree ul {
+              display:inline;
+              padding: 0;
+            }
+            
+            .tree li {
+              margin: 20px 0px;
+            }
+            
+            .tree .right {
+              left: -96px;
+              position: relative;
+              min-width: 400px;
+              width: 440px;
+            }
+            
+            .tree .right-node-label{
+              float: left;
+              margin-right: 36px;
+              font-size: 12px;
+              color: #3e87e8;
+              width: 60px;
+              min-width: 60px;
+              word-break: break-all;
+            }
+                        
+            .tree .left {
+              left: -226px;
+              position: relative;
+              min-width: 460px;
+            }
+            
+            .tree .noIconLeft {
+              left: -196px;
+            }
+            
+            .tree .left-node-label {
+              margin-left: 24px;
+              white-space: nowrap;
+              font-size: 12px;
+              color: #3e87e8;
+            }
+            
+            .left-iconed-stem {
+              margin-left: 16px;
+            }
+            
+            .violated-stem {
+              background-color: #dd6b1f;
+              height: 3px;
+            }
+            
+            .normal-stem {
+              background: #3b3b3f;
+              height: 2px;
+            }
+            
+            .has-violations-value {
+              color: #dd6b1f;
+            }
+            
+            .stem-icon {
+              margin-top: -1px;
+              width: 20px;
+              height: 20px;
+              float: left;
+            }
+             
+            .stem {
+              margin-top: 8px;
+              width:45px;
+              float: left;
+            }
+            
+            .left-label {
+              float: left;
+              text-align: center;
+              width: 180px;
+            }
+            
+            .tree .left-content {
+              float: left;
+              width: 100px;
+            }
+            
+            .left-stem {
+              clear: left;
+            }
+            
+            /* vertical line on list items */   
+            .tree .top {
+              font: bold normal 16px/24px Helvetica, Arial, serif;
+              padding: 6px 0px;
+            }
+            
+            .normal-branch {
+              border-left: 16px solid #b1b1bc;
+            }
+            
+            .violated-branch {
+              border-left: 16px solid #dd6b1f;
+            }
+            
+            .title {
+				      display: block;
+				      text-align: center;
+              font-size: 16px;
+              color: #242326;
+              font-weight: bold;
+              margin-bottom: 6px;
+            }
+            
+            .subtitle {
+              font-size: 14px;
+				      display: block;
+              color: #3b3b3f;
+              text-align: center;
+             }
+            
+            .tree .top>ul {
+              font: normal normal 13px/16px Helvetica, Arial, sans-serif;  
+            }
+            
+            /* flow values or text in "tree-node" */
+            .smallLabel {
+              font-size:   11px;
+              font-weight: 600;
+              /*font-family: Arial; */
+              margin: 0;
+              width: 76px;
+            }
+            
+            .hidden {
+              visibility: hidden;
+            }
+                        
+            .visible {
+              visibility: inherit;
+            }
+            
+            .hasNavigation {
+              cursor: pointer;
+            }
+            
+            .nodeLink {
+/*              background: #666;
+              color: white;*/
+              color: #3e87e8;
+              font-size: 12px;
+              height: 18px;
+              text-transform: none;
+              text-decoration-line: underline;
+            }
+            
+            .focused-node {
+              background-color: #CAF4FF;
+/*              background-color: lightsteelblue;
+*/            }
+            
+            .unfocused-node {
+              background-color: inherit;
+            }
+            
+            /* Bus-level labels */
+            /* Large - text (size-Delta)*/
+            .caption-x-large
+            {
+              font-size: 30px;
+              margin-right: 6px;
+            }
+            /* Medium text (size-Epslon) */
+            .caption-medium
+            { 
+              font-size: 20px;
+              min-width: 80px;
+              margin-right: 6px;
+              width: 60%;
+            }
+            /* Units -- gray, regular */
+            .caption-units
+            { 
+              font-size: 15px;
+              color: #525156;
+              left: 55px
+            }
+            
+            .x-large-label-section
+           {
+             margin: 0 0 30px 0;
+           }
+            
+            .caption-items-section
+            {
+              padding: 0 0 10px 0;
+            }
+            
+    </style>
+  </template>
+</dom-module>
+ 

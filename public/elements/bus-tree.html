@@ -1,0 +1,245 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="iconed-stem.html">
+<link rel="import" href="tree-node.html">
+<link href="../bower_components/paper-styles/paper-styles.html" rel="import">
+<link rel="import" href="../styles/bus-tree-styles.html"/>
+
+<dom-module id="bus-tree">
+    <template>
+        <style include="bus-tree-styles"></style>
+		<style is="custom-style">
+			.box-border-top {
+				border-bottom: 1px solid #d1d0d8;
+				padding: 10px;
+			}
+			.box-border-left {
+				border-right: 1px solid #d1d0d8;
+				padding: 10px;
+			}
+            .horizontal-section-container {
+                @apply(--layout-horizontal);
+            }      
+            .horizontal-section {
+                padding: 16px 20px;
+            }     
+		</style>
+		<div>
+			<div class="box-border-top">
+				<label id="captionNode" class="title">[[treeDef.caption.title]]</label>
+				<label id="subtitleNode" class="subtitle">[[treeDef.caption.subtitle]]</label>
+			</div>
+			<div class="horizontal-section-container">
+				<div class="horizontal-section box-border-left"}>
+					<div class="x-large-label-section">
+						<label class="caption-units">Nominal</label>
+						<label class="caption-x-large">[[treeDef.caption.bigLabel]]</label><label class="caption-units">[[treeDef.caption.bigLabelUnit]]</label>
+					</div>
+					<template is="dom-repeat" items="[[treeDef.caption.fieldsList]]">
+						<div class="caption-items-section">
+							<label class="caption-units">[[item.label]]</label><label class="caption-medium">[[item.value]]</label><label class="caption-units">[[item.unit]]</label>
+						</div>
+					</template>
+				</div>
+				<div class="horizontal-section">
+				<ul class="tree">
+					<li id="treeBranch" class="top normal-branch">
+						<ul id="nodes"/>					
+					</li>
+				</ul>
+				</div>
+			</div>
+		</div>
+	</template>
+    <script>
+        Polymer({
+            is: "bus-tree",			
+            properties: {
+                treeDefinition : {
+                    type: Object,
+                    observer: '_treeDefined'
+                },
+				focused : {
+					type: String,
+					observer: 'focusedNodeIdDefined',
+					value: ''
+				}
+            },
+			
+            _treeDefined: function(newValue, oldValue) {
+				this.clearTree();
+                if (newValue) {
+                    this.treeDef = newValue;
+					if (this.treeDef.hasBranchViolations) {
+						this.$.treeBranch.classList.toggle("normal-branch");
+						this.$.treeBranch.classList.toggle("violated-branch");
+					}
+                    if (this.treeDef.rightNodes) {
+                        this.addNodeIntoList(this.treeDef.rightNodes, "right");
+                    }
+                    if (this.treeDef.leftNodes) {
+                        this.addNodeIntoList(this.treeDef.leftNodes, "left");
+                    }
+                }
+            },
+						
+			focusedNodeIdDefined: function() {
+				if (this.focused) {
+					for (let liItem of this.$.nodes.querySelectorAll("li")) {
+						if (liItem.classList) {
+							liItem.classList.remove("focused-node");
+							liItem.classList.add("unfocused-node");
+						}
+					}
+					let li = this.$.nodes.querySelector("li[id= '" + this.focused + "']");
+					if (li) {
+						li.classList.remove("unfocused-node");
+						li.classList.add("focused-node");
+					}
+				}
+			},
+            
+            // This function creates <li> into the parent <ul> named "nodes".
+            // "dataNodes" - array of Node which will have "value" to
+            // be inserted as the HTML "textContent".
+            // styleClasses - string containing classes delimited by a space to
+            // assign to the <li>.
+            addNodeIntoList: function(dataNodes, styleClass) {
+                for (var i = 0; i < dataNodes.length; i++) {
+                    aNode = dataNodes[i];
+                    var newLi = document.createElement('li');
+					newLi.setAttribute("id", dataNodes[i].id);
+                    newLi.setAttribute("class", styleClass);
+                    if (styleClass === "right") {
+                        this.addRightStem(newLi, aNode);
+                    } else {
+                        this.addLeftStem(newLi, aNode);
+						if (aNode.type.indexOf("icon") < 0) {
+                            newLi.classList.add("noIconLeft");
+                        }
+                    }
+                    Polymer.dom(this.$.nodes).appendChild(newLi);                            
+                }                
+            },
+            
+            addRightStem: function(parent, dataNode) {
+				this.addCaptionToNode(parent, dataNode, "right-node-label");
+				// Create stem.
+				this.addStem(parent, dataNode);	//, "", null);
+				// Create Content on the Right.
+				var contentNode = this.createContentNode(parent, dataNode, true);
+				if (contentNode) {
+					Polymer.dom(parent).appendChild(contentNode);
+                }
+            },
+            
+            addLeftStem: function(parent, dataNode) {
+				// Create stem on the left with Caption
+				var contentNode = this.createContentNode(parent, dataNode, false);
+				if (contentNode) {
+					contentNode.classList.add("left-content");
+					Polymer.dom(parent).appendChild(contentNode);
+                }
+				this.addStem(parent, dataNode, true, contentNode);
+				//this.addStem(parent, dataNode, true);	//, contentNode);
+				// Create Node Label on the right of the bar.
+				this.addCaptionToNode(parent, dataNode, "left-node-label");
+            },
+			
+			addCaptionToNode(parent, dataNode, styleClassName) {
+				// Create Node Label on the left or right of the bar.
+                //var nodeLabel = document.createElement("label");
+                var nodeLabel = document.createElement("paperButton");
+				var caption = dataNode.caption;
+				if (!caption || caption.length == 0) {
+                    caption = "<empty>";
+                }
+                nodeLabel.textContent = caption;
+                nodeLabel.setAttribute("class", styleClassName);
+				nodeLabel.setAttribute("title", dataNode.className);
+                Polymer.dom(parent).appendChild(nodeLabel);
+				let busTree = this;
+				if (dataNode.tabularNavigator) {
+					nodeLabel.addEventListener('click', function() {
+						if (dataNode.tabularNavigator) {
+							busTree.fire('navigateToTabular', {destination:dataNode.tabularNavigator});
+						}
+					});
+					nodeLabel.classList.add("hasNavigation");
+				}
+			},
+			
+			createContentNode: function(parent, dataNode, isRight) {
+				var contentNode;
+				if (dataNode.type == "string" || dataNode.type == "string&icon") {
+					if (!dataNode.navigateTo) {
+                        contentNode = document.createElement('label');
+						if (dataNode.hasViolations) {
+							contentNode.setAttribute("class", "has-violations-value");
+						}
+                    } else {
+						contentNode = document.createElement('paperButton');
+						contentNode.setAttribute('title', dataNode.navigateTo.tooltip)
+						//contentNode.setAttribute("test", dataNode.navigateTo);
+		                let busTree = this;
+						contentNode.addEventListener('click', function() {
+							busTree.fire('navigate', {toId:dataNode.navigateTo.linkValue});
+						});
+					}
+					contentNode.textContent = dataNode.content.text;
+                } else if (dataNode.type.indexOf("custom") >= 0) {
+					contentNode = document.createElement('tree-node');
+					if (dataNode.navigateTo) {
+						contentNode.setAttribute("link", JSON.stringify(dataNode.navigateTo));
+					}
+					if (isRight) {
+						contentNode.setAttribute("is-on-right", isRight);
+                    }
+					if (dataNode.content.rows) {
+                        contentNode.setAttribute("values", JSON.stringify(dataNode.content.rows));
+                    }
+					if (dataNode.hasViolations) {
+						contentNode.setAttribute("has-violations", true)
+					}
+				}
+				return contentNode;
+			},
+			
+			addStem: function(parent, dataNode, isLeftStem, contentNode) {
+                var stem = document.createElement("iconed-stem");
+				if (isLeftStem) {
+					stem.setAttribute("class", "left-iconed-stem");
+ 					stem.setAttribute("is-left", true);
+               } else {
+					stem.setAttribute("is-left", false);
+				}
+				var contentDef = dataNode.content;
+				if (dataNode.type.indexOf("icon") >= 0) {
+					let align = "";
+					if (contentDef.iconAtEnd) {
+						if (isLeftStem) {
+							align = "left";
+                        } else {
+							align = "right";
+						}
+					} else {
+						align = "middle";
+					}
+					let iconDef = {};
+					iconDef['src'] = contentDef.iconSrc;
+					iconDef['align'] = align;
+					stem.setAttribute("icon-def", JSON.stringify(iconDef));
+				}
+				if (dataNode.hasViolations) {
+					stem.setAttribute("has-violations", true)
+				}
+                Polymer.dom(parent).appendChild(stem);
+			},
+			
+			clearTree() {
+				var nodes = Polymer.dom(this.$.nodes);
+				while (nodes.firstChild) nodes.removeChild(nodes.firstChild);
+			}
+            
+        })       
+    </script>
+</dom-module>

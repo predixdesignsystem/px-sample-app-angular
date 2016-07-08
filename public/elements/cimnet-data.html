@@ -1,0 +1,73 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<!-- This Polymer will get CIMNET data and raise an event "success" when response is back or the request failed. -->
+<!-- It is currently hard-coding the host, port and base url.  This can be moved to the Globals, I suppose. -->
+<!-- TODO:  Need to handle failure! -->
+
+<dom-module id="cimnet-data">
+    <template>
+        <iron-ajax
+			auto
+            method="POST"
+            url="[[url]]"
+            handle-as="json"
+            on-response="_raiseEvent"
+			on-error="_fetchDataFailure"
+            headers={{makeheaders('testuser','testpassword')}}
+        </iron-ajax>
+	</template>
+
+    <script>
+        Polymer({
+            is: "cimnet-data",
+            properties: {
+                workspaceCommand: {
+					type: String,
+					value: ""
+				},
+                // workspace will be the full base URL for a given workspace
+                workspace: {
+					type: String,
+					value: ""
+				},
+                query: {
+					type: String,
+					value: ""
+				},
+                url: {
+					type: String,
+					readOnly: true,
+                    computed: 'computeUrl(workspaceCommand, workspace, query)'
+                }
+            },
+			
+            _raiseEvent: function(request) {
+				let resp = request.detail.response;
+				this.fire('arrived', {data:resp});
+            },
+			
+			_fetchDataFailure: function(err) {
+				console.log("app.handleGridError error message: "+JSON.stringify(err));
+		    },
+			
+            computeUrl: function (wsCommand, ws, selectQuery) {
+                let theUrl = null;
+                if (wsCommand && wsCommand.length > 0) {
+                   //theUrl = cimGlobals.cimnetBaseUrl() + cimGlobals.workspace + cimGlobals.cmdLoadFile() + elemValue;
+                    theUrl = ['/cimnet', ws, wsCommand].join();    // + cimGlobals.cmdLoadFile() + elemValue;
+                } else if (selectQuery) {
+                    theUrl = this.workspace + "/model/queries?query=" + selectQuery;
+				}
+                return theUrl;
+            },
+            
+            makeheaders: function(user, pass){
+                var obj = {};
+                obj.Authorization = "Basic " + btoa(user + ":" + pass);
+                return obj;  
+            }    
+            
+        })       
+    </script>
+</dom-module>
