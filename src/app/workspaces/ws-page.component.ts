@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MD_TABS_DIRECTIVES } from '@angular2-material/tabs/tabs';
 // import { ISubscription } from 'rxjs';
-import { BusViewComponent } from '../views/bus-view.component';
+import { BusViewComponent } from '../bus-view/bus-view.component';
 
 @Component({
   moduleId: module.id,

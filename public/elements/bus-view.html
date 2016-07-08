@@ -8,7 +8,7 @@
 <script>
     // TODO: check if double-loading system-config.js here is of any consequence ...
     System.import('system-config.js').then(function () {
-        System.import('../app/busviewscripts/library').then(function(exports){ 
+        System.import('../app/bus-view/scripts/index').then(function(exports){ 
             // convert exports to globals
             // TODO: find a way to do this via SystemJs config, or 
             //       get rid of use of globals altogether
