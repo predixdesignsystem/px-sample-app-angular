@@ -3,6 +3,7 @@ import { enableProdMode } from '@angular/core';
 import { AppComponent, environment } from './app/';
 import { APP_ROUTER_PROVIDERS } from './app/app.routes';
 import { NgRedux } from 'ng2-redux';
+import { disableDeprecatedForms, provideForms } from '@angular/forms';
 
 if (environment.production) {
   enableProdMode();
@@ -10,6 +11,9 @@ if (environment.production) {
 
 bootstrap(AppComponent, [
   APP_ROUTER_PROVIDERS,
-  NgRedux
+  NgRedux,
+  // https://angular.io/docs/ts/latest/guide/forms.html
+  disableDeprecatedForms(),
+  provideForms()
 ])
 .catch(err => console.error(err));
