@@ -10,13 +10,6 @@ const map: any = {
   redux: 'vendor/redux/dist/redux.js',
   'ng2-redux': 'vendor/ng2-redux/lib',
   '@angular2-material': 'vendor/@angular2-material',
-
-  // redux-api-middleware and its dependencies!
-  /* TODO: Can't figure out the right SystemJS config to get 
-      require('regenerator-runtime)[default] to work
-      in r-a-m/lib/util.js and r-a-m/lib/middleware.js,
-      for now comment out [default] there ...
-  */
   'redux-api-middleware': 'vendor/redux-api-middleware/lib',
   'babel-runtime': 'vendor/babel-runtime',
   'regenerator-runtime': 'vendor/regenerator-runtime',
