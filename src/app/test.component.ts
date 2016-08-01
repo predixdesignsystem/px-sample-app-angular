@@ -1,5 +1,6 @@
 import { Component, Directive, Output, EventEmitter, HostListener } from '@angular/core';
 import { PaperCheckboxControlValueAccessorDirective } from './shared/paper-checkbox.cva';
+import { PolymerElement } from '@vaadin/angular2-polymer';
 
 @Directive({
   selector: 'paper-checkbox[translateEvent]'
