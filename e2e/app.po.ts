@@ -1,4 +1,4 @@
-export class UingPage {
+export class Ng2pPage {
   navigateTo() {
     return browser.get('/');
   }
