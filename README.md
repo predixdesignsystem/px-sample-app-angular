@@ -1,7 +1,7 @@
 # Angular 2 + Polymer Seed
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.10. On top of the base generated project, it has
-* Basic scaffolding needed for use of Polymer elements. If follows the pattern established in Vaddin's [Polymer in Angular-CLI Apps](https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html), and includes [vaadin/angular2-polymer](https://github.com/vaadin/angular2-polymer). [src/elements.html](src/elements.html) lists all Polymer elements used by the app. [src/test.component.ts](src/test.component.ts) illustrates several patterns of Angular 2 databinding with Polymer's paper-checkbox.
+* Basic scaffolding needed for use of Polymer elements. If follows the pattern established in Vaddin's [Polymer in Angular-CLI Apps](https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html), and includes [vaadin/angular2-polymer](https://github.com/vaadin/angular2-polymer). [src/elements.html](src/elements.html) lists all Polymer elements used by the app. [src/app/test.component.ts](src/app/test.component.ts) illustrates several patterns of Angular 2 databinding with Polymer's paper-checkbox.
 * Angular Material integration
 * Angular Router 3.0 integration
 
