@@ -13,8 +13,8 @@
     "tests"
   ],
   "dependencies": {
-    "paper-card": "polymerelements/paper-card#^1.1.1",
     "paper-button": "polymerelements/paper-button#^1.0.12",
+    "paper-checkbox": "polymerelements/paper-checkbox#^1.3.0",
     "iron-elements": "PolymerElements/iron-elements#^1.0.10",
     "vaadin-combo-box": "vaadin/vaadin-combo-box#^1.1.0"
   }
