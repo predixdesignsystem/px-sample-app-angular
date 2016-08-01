@@ -1,5 +1,5 @@
 import { Component, Directive, Output, EventEmitter, HostListener } from '@angular/core';
-import { PaperCheckboxControlValueAccessorDirective } from './valueaccessor';
+import { PaperCheckboxControlValueAccessorDirective } from './shared/paper-checkbox.cva';
 
 @Directive({
   selector: 'paper-checkbox[translateEvent]'
@@ -16,7 +16,7 @@ class PolymerCheckedEventDirective {
   selector: 'my-app',
   template: `
     <div>
-      <h2>Angular2 + Polymer checkbox</h2>
+      <h2>Angular2 + Polymer checkbox databinding example</h2>
       <div>Value: {{v}}</div>
       <paper-button raised (click)="onBtnClick($event)">Ng Update Checkbox</paper-button>
 
@@ -66,7 +66,7 @@ class PolymerCheckedEventDirective {
     </div>
   `,
   directives: [
-    // either of these two enabled bi-directional binding
+    // either of these two enable bi-directional binding
     PolymerCheckedEventDirective,
 //  PolymerElement('paper-checkbox'),
     // enables ngModel compatibility
