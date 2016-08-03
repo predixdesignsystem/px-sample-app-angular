@@ -1,0 +1,11 @@
+// Settings
+@import "px-defaults-design/_settings.defaults.scss";
+@import "px-colors-design/_settings.colors.scss";
+
+// Tools
+@import "px-mixins-design/_tools.mixins.scss";
+
+// Seed Theme
+@import "seed-theme.scss";
+
+@import "seed-splash.scss";
