@@ -10,7 +10,6 @@ This project was generated with [angular-cli](https://github.com/angular/angular
 * Clone the repository and [install Angular 2 CLI](https://github.com/angular/angular-cli/blob/master/README.md#installation)
 * Run `npm install`
 * Run `bower install`
-* Run `rm -r public/bower_components/hydrolysis` (until I figure out a way to exclude it from TS build)
 
 At this point you should be able to run `ng serve` as described below.
 
