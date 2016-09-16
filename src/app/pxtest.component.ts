@@ -20,7 +20,37 @@ import { Component } from '@angular/core';
     </px-datetime-picker>
 
     <paper-button raised (click)="hideTime = !hideTime">Show/Hide Time</paper-button>
-    
+
+    <px-vis-pie-chart 
+                  id="donut" 
+                  width="300" 
+                  height="250"
+                  use-percentage="true" 
+                  include-all-series="true"
+                  donut="true"
+                  chart-data='[
+                  {"x": 15, "y": "IPA"}, 
+                  {"x": 8,"y": "Lambic"}, 
+                  {"x": 12,
+                  "y": "Stout"
+                },
+                {
+                  "x": 7,
+                  "y": "Pale Ale"
+                },
+                {
+                  "x": 9,
+                  "y": "Porter"
+                },
+                {
+                  "x": 4,
+                  "y": "Heffeweisse"
+                }]' 
+                
+                  use-percentage="true"
+                  style="margin: auto"
+                  >
+              </px-vis-pie-chart>
   `,
   styles: []
 })

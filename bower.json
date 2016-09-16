@@ -33,7 +33,8 @@
     "px-headings-design": "https://github.com/PredixDev/px-headings-design.git#~0.2.10",
     "px-buttons-design": "https://github.com/PredixDev/px-buttons-design.git#~0.4.17",
 
-    "px-layout-design": "https://github.com/PredixDev/px-layout-design.git#~0.3.13"  
+    "px-layout-design": "https://github.com/tallaxes/px-layout-design.git#master",
+    "px-vis-pie-chart": "~0.1.1"  
   },
   "resolutions": {
     "px-viewport-design": "~0.4.3"
