@@ -1,6 +1,3 @@
 {
-  "directory" : "public/bower_components",
-  "ignoredDependencies": [
-    "hydrolysis"
-  ]
+  "directory" : "src/assets/bower_components"
 }

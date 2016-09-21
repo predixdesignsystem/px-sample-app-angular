@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 
 @Component({
-  moduleId: module.id,
   selector: 'app-pxtest',
   template: `
     <div>Value: {{dateTime}}  Time Hidden: {{hideTime}}</div>

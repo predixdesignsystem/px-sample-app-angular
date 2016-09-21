@@ -1,5 +1,6 @@
-import { Directive, Renderer, forwardRef, ElementRef,  provide } from '@angular/core';
+import { Directive, Renderer, forwardRef, ElementRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Output, EventEmitter, HostListener } from '@angular/core';
 
 const noop = () => {};
 
@@ -8,11 +9,11 @@ const noop = () => {};
   host: {
     '(checked-changed)': 'onChange($event.detail.value)'
   },
-  providers: [provide(
-    NG_VALUE_ACCESSOR, {
+  providers: [{
+      provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => PaperCheckboxControlValueAccessorDirective),
       multi: true
-    })]
+    }]
 })
 export class PaperCheckboxControlValueAccessorDirective implements ControlValueAccessor {
   private onChange: (_: any) => void = noop;
@@ -33,5 +34,17 @@ export class PaperCheckboxControlValueAccessorDirective implements ControlValueA
 
   registerOnTouched(fn: any) {
     this.onTouched = fn;
+  }
+}
+
+
+@Directive({
+  selector: 'paper-checkbox[translateEvent]'
+})
+export class PolymerCheckedEventDirective {
+  @Output() checkedChange: EventEmitter<any> = new EventEmitter();
+  @HostListener('checked-changed', ['$event'])
+  onChange(e) {
+    this.checkedChange.emit(e.detail.value);
   }
 }

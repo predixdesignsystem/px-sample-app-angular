@@ -1,17 +1,4 @@
-import { Component, Directive, Output, EventEmitter, HostListener } from '@angular/core';
-import { PaperCheckboxControlValueAccessorDirective } from './shared/paper-checkbox.cva';
-import { PolymerElement } from '@vaadin/angular2-polymer';
-
-@Directive({
-  selector: 'paper-checkbox[translateEvent]'
-})
-class PolymerCheckedEventDirective {
-  @Output() checkedChange: EventEmitter<any> = new EventEmitter();
-  @HostListener('checked-changed', ['$event'])
-  onChange(e) {
-    this.checkedChange.emit(e.detail.value);
-  }
-}
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'my-app',
@@ -66,13 +53,6 @@ class PolymerCheckedEventDirective {
       </div>
     </div>
   `,
-  directives: [
-    // either of these two enable bi-directional binding
-    PolymerCheckedEventDirective,
-//  PolymerElement('paper-checkbox'),
-    // enables ngModel compatibility
-    PaperCheckboxControlValueAccessorDirective
-  ]
 })
 export class TestComponent {
   v: any = true;

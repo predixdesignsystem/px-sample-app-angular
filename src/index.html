@@ -5,46 +5,19 @@
   <title>ng2p</title>
   <base href="/">
 
-  {{#unless environment.production}}
-  <script src="/ember-cli-live-reload.js" type="text/javascript"></script>
-  {{/unless}}
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-  <!-- Predix UI stylesheet -->
-  <link rel="stylesheet" type="text/css" href="sass/index.css">
-
 </head>
 <body>
   <app-root>Loading...</app-root>
 
+  <!-- Polymer elements integration; follows the pattern at
+    https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html
+    - load web components polyfill and all used elements
+  -->
 
-
-    {{#each scripts.polyfills}}
-    <script src="{{.}}"></script>
-    {{/each}}
-
-    <!-- Polymer elements integration; follows the pattern at
-      https://vaadin.com/vaadin-documentation-portlet/elements/angular2-polymer/ng-cli.html
-      - load web components polyfill and all used elements
-      - wait for WebComponentsReady event before bootstrap
-
-      Note: this won't work in -prod (production) deployment
-      until angular/angular-cli#540 is fixed'  
-     -->
-
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <link rel="import" href="elements.html">
-
-    <script>
-      document.addEventListener('WebComponentsReady', function() {
-        System.import('system-config.js').then(function () {
-          System.import('main');
-        }).catch(console.error.bind(console));
-      });
-    </script>
-
-    
+  <script src="assets/bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+  <link rel="import" href="elements.html">
 
 </body>
 </html>

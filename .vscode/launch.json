@@ -2,21 +2,45 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch localhost:4200 with sourcemaps",
-            "type": "chrome",
+            "name": "ng build",
+            "type": "node",
             "request": "launch",
-            "url": "http://localhost:4200",
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}/dist",
-            "diagnosticLogging": false
+            "program": "${workspaceRoot}/node_modules/angular-cli/bin/ng",
+            "stopOnEntry": false,
+            "args": [ "build"],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outDir": null
         },
         {
-            "name": "Attach with sourcemaps",
-            "type": "chrome",
+            "name": "Attach",
+            "type": "node",
             "request": "attach",
-            "port": 9222,
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "port": 5858,
+            "address": "localhost",
+            "restart": false,
+            "sourceMaps": false,
+            "outDir": null,
+            "localRoot": "${workspaceRoot}",
+            "remoteRoot": null
+        },
+        {
+            "name": "Attach to Process",
+            "type": "node",
+            "request": "attach",
+            "processId": "${command.PickProcess}",
+            "port": 5858,
+            "sourceMaps": false,
+            "outDir": null
         }
     ]
 }
