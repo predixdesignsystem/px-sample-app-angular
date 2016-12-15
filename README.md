@@ -20,12 +20,21 @@ If you need to do `ng build` on Windows, see EMFILE under Known Problems.
 
 ### SASS Include Path
 
-Predix UI SASS stylesheets use imports like `@import px-defaults-design/…` (px-default-design is a bower component); so 'bower\_components' has to be added to [node-sass includePaths](https://github.com/sass/node-sass#includepaths), via [sass-loader options](https://github.com/jtangelder/sass-loader#sass-options) in webpack configuration. Angular CLI does not yet allow customization of webpack config ([angular-cli#1656](https://github.com/angular/angular-cli/issues/1656)); so for now one has to patch the built-in one (node_modules\angular-cli\models\webpack-build-common.js). Add this to the object returned from getWebpackCommonConfig:
+(Instructions updated for Angular CLI v1.0.0-beta.22)
+
+In `node_modules\angular-cli\models\webpack-build-\[development,production,test\].js` add the following `sassLoader` key under `webpack.LoaderOptionsPlugin` options:
+
 ```js
+    new webpack.LoaderOptionsPlugin({
+      options: {
         sassLoader: {  // all options here: https://github.com/sass/node-sass
-            includePaths: [ path.resolve(appRoot, appConfig.assets,'bower_components') ]  
-        }    
+            includePaths: [ path.resolve(projectRoot, appConfig.root, appConfig.assets,'bower_components') ]
+        }
+      }
+    })
 ```
+
+Here is why: Predix UI CSS (and pxh-chrome) Sass stylesheets use imports like `@import px-defaults-design/…` (px-default-design is a bower component); so 'bower\_components' has to be added to [node-sass includePaths](https://github.com/sass/node-sass#includepaths), via [sass-loader options](https://github.com/jtangelder/sass-loader#sass-options) in webpack configuration. Angular CLI does not yet allow customization of webpack config ([angular-cli#1656](https://github.com/angular/angular-cli/issues/1656)); so for now one has to patch the built-in one (node_modules\angular-cli\models\webpack-build-\[development,production,test\].js).
 
 ### EMFILE "too many open files" error when building on Windows
 
