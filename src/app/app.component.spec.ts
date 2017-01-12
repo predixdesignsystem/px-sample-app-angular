@@ -10,6 +10,8 @@ describe('AppComponent', () => {
         AppComponent
       ],
     });
+    // TODO: check when/if compileComponents is needed
+    TestBed.compileComponents();
   });
 
   it('should create the app', async(() => {
