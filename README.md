@@ -20,16 +20,19 @@ If you need to do `ng build` on Windows, see EMFILE under Known Problems.
 
 ### SASS Include Path
 
-(Instructions updated for Angular CLI v1.0.0-beta.22)
+(Instructions updated for Angular CLI v1.0.0-beta.24)
 
-In `node_modules\angular-cli\models\webpack-build-\[development,production,test\].js` add the following `sassLoader` key under `webpack.LoaderOptionsPlugin` options:
+In `node_modules\angular-cli\models\webpack-build-\[common,production\].js` add the following `includePaths` key under `webpack.LoaderOptionsPlugin` options for `sassLoader`:
 
 ```js
     new webpack.LoaderOptionsPlugin({
+      // ...
       options: {
-        sassLoader: {  // all options here: https://github.com/sass/node-sass
-            includePaths: [ path.resolve(projectRoot, appConfig.root, appConfig.assets,'bower_components') ]
-        }
+        // ...
+        sassLoader: {
+          sourceMap: sourcemap,
+          includePaths: [ path.resolve(appRoot, appConfig.assets[0], 'bower_components') ]
+        },
       }
     })
 ```
@@ -41,6 +44,7 @@ Here is why: Predix UI CSS (and pxh-chrome) Sass stylesheets use imports like `@
 With many components in bower_components included in assets, `ng build` on Windows will likely fail with EMFILE, "too many open files" (`ng serve` will work fine, it does not use the filesystem.) This is due to webpack/copy-webpack-plugin hitting the Windows/CRT limit of 2048 open files ([kevlened/copy-webpack-plugin#59](https://github.com/kevlened/copy-webpack-plugin/issues/59#issuecomment-248443224)) Until there is a better solution, patch node\_modules\angular-cli\node\_modules\webpack\lib\Compiler.js as described in the referenced comment.
 
 ## Development server
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
