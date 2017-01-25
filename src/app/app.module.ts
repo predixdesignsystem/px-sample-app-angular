@@ -8,10 +8,9 @@ import { TestComponent } from './test.component';
 import { PxTestComponent } from './pxtest.component';
 
 import { routing,
-         appRoutingProviders }  from './app.routing';
+         appRoutingProviders } from './app.routing';
 
 import { PaperCheckboxControlValueAccessorDirective, PolymerCheckedEventDirective } from './shared/paper-checkbox.cva';
-import { PolymerElement } from '@vaadin/angular2-polymer';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
@@ -20,9 +19,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
     AppComponent,
     TestComponent, PxTestComponent,
 
-    // either of these two enable bi-directional binding
+    // enable bi-directional binding
     PolymerCheckedEventDirective,
-//  PolymerElement('paper-checkbox'),
     // enables ngModel compatibility
     PaperCheckboxControlValueAccessorDirective
   ],

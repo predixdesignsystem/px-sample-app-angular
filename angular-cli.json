@@ -1,6 +1,6 @@
 {
   "project": {
-    "version": "1.0.0-beta.25.5",
+    "version": "1.0.0-beta.26",
     "name": "ng2p"
   },
   "apps": [
@@ -20,6 +20,11 @@
       "styles": [
         "styles.scss"
       ],
+      "stylePreprocessorOptions": {
+        "includePaths": [
+          "assets/bower_components"
+        ]
+      },
       "scripts": [],
       "environments": {
         "source": "environments/environment.ts",
