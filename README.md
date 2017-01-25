@@ -1,9 +1,8 @@
 # Angular 2 + Polymer Seed
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.14.
+This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.26.
  On top of the base generated project, it has
 * Basic scaffolding needed for use of Polymer elements. If follows the pattern established in Vaadin's [Polymer in Angular CLI Webpack Applications](https://github.com/vaadin/angular2-polymer/blob/master/docs/ng-cli-webpack.adoc), and includes [vaadin/angular2-polymer](https://github.com/vaadin/angular2-polymer). [src/elements.html](src/elements.html) lists all Polymer elements used by the app. [src/app/test.component.ts](src/app/test.component.ts) illustrates several patterns of Angular 2 databinding with Polymer's paper-checkbox.
-* Angular Material integration
 * Angular Router 3.0 integration
 
 ## Setup
@@ -20,24 +19,7 @@ If you need to do `ng build` on Windows, see EMFILE under Known Problems.
 
 ### SASS Include Path
 
-(Instructions updated for Angular CLI v1.0.0-beta.24)
-
-In `node_modules\angular-cli\models\webpack-build-\[common,production\].js` add the following `includePaths` key under `webpack.LoaderOptionsPlugin` options for `sassLoader`:
-
-```js
-    new webpack.LoaderOptionsPlugin({
-      // ...
-      options: {
-        // ...
-        sassLoader: {
-          sourceMap: sourcemap,
-          includePaths: [ path.resolve(appRoot, appConfig.assets[0], 'bower_components') ]
-        },
-      }
-    })
-```
-
-Here is why: Predix UI CSS (and pxh-chrome) Sass stylesheets use imports like `@import px-defaults-design/…` (px-default-design is a bower component); so 'bower\_components' has to be added to [node-sass includePaths](https://github.com/sass/node-sass#includepaths), via [sass-loader options](https://github.com/jtangelder/sass-loader#sass-options) in webpack configuration. Angular CLI does not yet allow customization of webpack config ([angular-cli#1656](https://github.com/angular/angular-cli/issues/1656)); so for now one has to patch the built-in one (node_modules\angular-cli\models\webpack-build-\[development,production,test\].js).
+No longer an issue (since CLI v1.0.0-beta.26), relevant configuration is now in `angular-cli.json` under `"stylePreprocessorOptions"`.
 
 ### EMFILE "too many open files" error when building on Windows
 
