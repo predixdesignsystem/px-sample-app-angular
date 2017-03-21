@@ -24,6 +24,7 @@ $viewport-margin: 2rem; // defaults to auto
 // Objects
 $inuit-enable-btn--bare     : true;
 
+$fa-font-path: "../../assets/bower_components/font-awesome/fonts";
 @import "px-buttons-design/_objects.buttons.scss";
 
 $inuit-enable-layout--small : true;
