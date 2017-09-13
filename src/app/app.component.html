@@ -1,19 +1,27 @@
-<header role="banner" class="flex flex--middle">
-    <div class="viewport">
-    <h1 class="weight--normal">
-        <ge-svg-logo class="u-mr--"></ge-svg-logo> Angular 2 + Polymer Seed Application
-    </h1>
-    <h2 class="weight--normal float--right">
-        Powered by Predix
-    </h2>
-    </div>
-</header>
+<px-app-header>
+  <px-branding-bar slot="branding-bar"></px-branding-bar>
+  <px-app-nav slot="app-nav" [selectedRoute]='selectedRoute' (selected-route-changed)="switchRoute($event)" items='[{"label": "Dashboard","path": "dashboard","icon": "px-fea:dashboard", "id": "dashboard"}, {"label": "Details","id": "layout","icon": "px-fea:analysis"}, {"label": "Alerts","path": "inbox","icon": "px-fea:alerts", "id": "inbox"}]'>
+  </px-app-nav>
+  <div>
 
-<div class="viewport">
-    <div class="content-wrapper">
-        <main class="u-pt-- u-pr-- u-pl--" role="main">
-            <!-- Routed views go here -->
-            <router-outlet></router-outlet>
-        </main>
+    <!-- The px-context-browser and px-breadcrumbs can be used in combination to provide both the traditional drilldown navigation
+      as well as an interactive breadcrumb for quick navigation throughout the hierarchy. Place them both in a flex--row so that
+      they appear next to each other in a container. -->
+
+    <div class="context-browser shadow-navigation u-ph flex flex--row flex--middle">
+      <px-context-browser-trigger (trigger-changed)="updateTrigger($event)"></px-context-browser-trigger>
+      <px-context-browser items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts","info":"This is a list of alerts","children":[{"label":"Alert #1","id":"al1","info":"Oh no! Your turbine has stopped spinning"},{"label":"Alert #2","id":"al2","info":"Looks like something is not working"},{"label":"Alert #3","id":"al3","info":"I am a helpful alert message"},{"label":"Alert #4","id":"al4","info":"Danger: Something is not right."}]},{"label":"Assets","id":"assets","children":[{"label":"Asset #1","id":"a1","info":"Here is some information about this asset"},{"label":"Asset #2","id":"a2","info":"This is a different asset. Here is more information about this asset."}]}]'
+        selected-route='["assets","a1"]'></px-context-browser>
+      <px-breadcrumbs class="flex__item" items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts","info":"This is a list of alerts","children":[{"label":"Alert #1","id":"al1","info":"Oh no! Your turbine has stopped spinning"},{"label":"Alert #2","id":"al2","info":"Looks like something is not working"},{"label":"Alert #3","id":"al3","info":"I am a helpful alert message"},{"label":"Alert #4","id":"al4","info":"Danger: Something is not right."}]},{"label":"Assets","id":"assets","children":[{"label":"Asset #1","id":"a1","info":"Here is some information about this asset"},{"label":"Asset #2","id":"a2","info":"This is a different asset. Here is more information about this asset."}]}]'
+        selected-route='["assets","a1"]' click-only-mode></px-breadcrumbs>
     </div>
-</div>
+
+    <router-outlet></router-outlet>
+
+
+    <div class="footer flex flex--left flex--middle u-p">
+      <a class="actionable" href="https://github.com/PredixDev/px-sample-app" target="_blank">Get the code for this sample application on GitHub</a>
+    </div>
+
+  </div>
+</px-app-header>

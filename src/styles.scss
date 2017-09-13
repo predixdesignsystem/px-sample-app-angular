@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow-x: hidden;
+}
 
 // Predix UI stylesheet
-@import "app/sass/index.scss"
+@import "app/sass/px-sample-app.scss"

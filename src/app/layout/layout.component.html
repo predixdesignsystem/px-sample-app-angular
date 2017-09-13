@@ -1,0 +1,82 @@
+<!-- Use Polymer (or whatever framework you want to use) to bind together the "selected" properties
+           of both px-tabs and iron-pages, so that a change of one will trigger a change of the other. -->
+
+<px-tabs class="u-m+" selected="0">
+  <px-tab id='tab1'>New Asset</px-tab>
+  <px-tab id='tab2'>Configure Fleet</px-tab>
+  <px-tab id='tab3'>Asset Detail</px-tab>
+  <px-tab id='tab3'>Expert Search</px-tab>
+</px-tabs>
+<iron-pages selected="0">
+
+  <!-- Container for the content of the 1st px-tab -->
+  <div>
+    <div class="u-mh+">
+      <span class="heading--page">Add New Asset</span>
+      <div class="flex u-mv++">
+        <div class="u-mr++">
+          <label for="input1">Asset ID</label>
+          <input id="input1" value="LWK-EW-003" class="text-input input--small" type="text" />
+        </div>
+        <div>
+          <label for="input2">Serial Number</label>
+          <input id="input2" value="0216-285933-335" class="text-input input--small" type="text" />
+        </div>
+      </div>
+      <span class="heading--subsection u-mv++">Advanced options</span>
+      <div class="flex u-mv++">
+        <div class="u-mr++">
+          <label for="input1">Max output</label>
+          <input id="input1" value="100" class="text-input input--small" type="text" />
+        </div>
+        <div>
+          <label for="input2">Unit</label>
+          <px-dropdown items='["PSI","MW","F"]' selected="1"></px-dropdown>
+        </div>
+      </div>
+      <div class="flex u-mv++">
+        <div class="u-mr++">
+          <label for="input1">Asset Class</label>
+          <input id="input1" value="Turbine" class="text-input input--small" type="text" />
+        </div>
+        <div>
+          <label for="input2">Security Level</label>
+          <px-dropdown items='["1","2","3","4"]' selected="1"></px-dropdown>
+        </div>
+      </div>
+      <span class="heading--subsection u-mv++">Other options</span>
+      <div class="u-mv">
+        <px-toggle class="u-mr--" size="small"></px-toggle>
+        <label class="label--inline">Show in search results</label>
+      </div>
+      <div class="u-mv">
+        <px-toggle class="u-mr--" size="small"></px-toggle>
+        <label class="label--inline">For commissioning only</label>
+      </div>
+      <button class="btn u-mv+">Cancel</button>
+      <button class="btn btn--call-to-action u-mv+">Submit</button>
+    </div>
+
+    <px-card class="light-card" header-text="Fleet" icon="px-obj:steam-turbine">
+      <div class='actions'>
+        <px-icon icon='px-utl:app-settings'></px-icon>
+      </div>
+      <px-data-table [tableData]='tableData'>
+      </px-data-table>
+    </px-card>
+
+  </div>
+
+  <!-- Container for the content of the 2nd px-tab -->
+  <div>
+    <span class="heading--page">Configure Fleet</span>
+  </div>
+  <!-- Container for the content of the 3rd px-tab -->
+  <div>
+    <span class="heading--page">Asset Detail</span>
+  </div>
+  <!-- Container for the content of the 4th px-tab -->
+  <div>
+    <span class="heading--page">Expert Search</span>
+  </div>
+</iron-pages>
