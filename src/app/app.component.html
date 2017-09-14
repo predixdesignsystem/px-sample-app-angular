@@ -1,3 +1,5 @@
+<!-- If you're using px-app-nav in its vertical configuration, you should use px-branding-bar instead of px-app-header -->
+
 <px-app-header>
   <px-branding-bar slot="branding-bar"></px-branding-bar>
   <px-app-nav slot="app-nav" [selectedRoute]='selectedRoute' (selected-route-changed)="switchRoute($event)" items='[{"label": "Dashboard","path": "dashboard","icon": "px-fea:dashboard", "id": "dashboard"}, {"label": "Details","id": "layout","icon": "px-fea:analysis"}, {"label": "Alerts","path": "inbox","icon": "px-fea:alerts", "id": "inbox"}]'>
@@ -9,15 +11,15 @@
       they appear next to each other in a container. -->
 
     <div class="context-browser shadow-navigation u-ph flex flex--row flex--middle">
-      <px-context-browser-trigger (trigger-changed)="updateTrigger($event)"></px-context-browser-trigger>
-      <px-context-browser items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts","info":"This is a list of alerts","children":[{"label":"Alert #1","id":"al1","info":"Oh no! Your turbine has stopped spinning"},{"label":"Alert #2","id":"al2","info":"Looks like something is not working"},{"label":"Alert #3","id":"al3","info":"I am a helpful alert message"},{"label":"Alert #4","id":"al4","info":"Danger: Something is not right."}]},{"label":"Assets","id":"assets","children":[{"label":"Asset #1","id":"a1","info":"Here is some information about this asset"},{"label":"Asset #2","id":"a2","info":"This is a different asset. Here is more information about this asset."}]}]'
-        selected-route='["assets","a1"]'></px-context-browser>
+      <px-context-browser-trigger #openTrigger></px-context-browser-trigger>
+      <px-context-browser [openTrigger]="openTrigger" items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts","info":"This is a list of alerts","children":[{"label":"Alert #1","id":"al1","info":"Oh no! Your turbine has stopped spinning"},{"label":"Alert #2","id":"al2","info":"Looks like something is not working"},{"label":"Alert #3","id":"al3","info":"I am a helpful alert message"},{"label":"Alert #4","id":"al4","info":"Danger: Something is not right."}]},{"label":"Assets","id":"assets","children":[{"label":"Asset #1","id":"a1","info":"Here is some information about this asset"},{"label":"Asset #2","id":"a2","info":"This is a different asset. Here is more information about this asset."}]}]'
+        [selectedRoute]="selectedContext" (selected-route-changed)="selectedContext = $event.detail.value"></px-context-browser>
       <px-breadcrumbs class="flex__item" items='[{"label":"Home","id":"home"},{"label":"Alerts","id":"alerts","info":"This is a list of alerts","children":[{"label":"Alert #1","id":"al1","info":"Oh no! Your turbine has stopped spinning"},{"label":"Alert #2","id":"al2","info":"Looks like something is not working"},{"label":"Alert #3","id":"al3","info":"I am a helpful alert message"},{"label":"Alert #4","id":"al4","info":"Danger: Something is not right."}]},{"label":"Assets","id":"assets","children":[{"label":"Asset #1","id":"a1","info":"Here is some information about this asset"},{"label":"Asset #2","id":"a2","info":"This is a different asset. Here is more information about this asset."}]}]'
-        selected-route='["assets","a1"]' click-only-mode></px-breadcrumbs>
+        [selectedRoute]="selectedContext" (selected-route-changed)="selectedContext = $event.detail.value" click-only-mode></px-breadcrumbs>
     </div>
 
+    <!-- The Angular router determines which page/view is displayed. Alternatively, you could use px-app-route which has similar functionality. -->
     <router-outlet></router-outlet>
-
 
     <div class="footer flex flex--left flex--middle u-p">
       <a class="actionable" href="https://github.com/PredixDev/px-sample-app" target="_blank">Get the code for this sample application on GitHub</a>

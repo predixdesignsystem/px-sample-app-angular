@@ -1,8 +1,8 @@
 # Angular 2 + Polymer Seed
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-rc.2
+This project was generated with [angular-cli](https://github.com/angular/angular-cli).
  On top of the base generated project, it has
-* Basic scaffolding needed for use of Polymer elements. If follows the pattern established in Vaadin's [Polymer in Angular CLI Webpack Applications](https://github.com/vaadin/angular2-polymer/blob/master/docs/ng-cli-webpack.adoc), and includes [vaadin/angular2-polymer](https://github.com/vaadin/angular2-polymer). [src/elements.html](src/elements.html) lists all Polymer elements used by the app. [src/app/test.component.ts](src/app/test.component.ts) illustrates several patterns of Angular 2 databinding with Polymer's paper-checkbox.
+* Basic scaffolding needed for use of Polymer elements. If follows the pattern established in Vaadin's [Polymer in Angular CLI Webpack Applications](https://github.com/vaadin/angular2-polymer/blob/master/docs/ng-cli-webpack.adoc), and includes [vaadin/angular2-polymer](https://github.com/vaadin/angular2-polymer). The [src/elements.html](src/elements.html) file lists all of the Polymer-based Predix components used by the app.
 * Angular Router 3.0 integration
 
 ## Setup
@@ -15,10 +15,6 @@ At this point you should be able to run `ng serve` as described below.
 If you need to do `ng build` on Windows, see EMFILE under Known Problems.
 
 ## Known Problems
-
-### SASS Include Path
-
-No longer an issue (since CLI v1.0.0-beta.26), relevant configuration is now in `angular-cli.json` under `"stylePreprocessorOptions"`.
 
 ### EMFILE "too many open files" error when building on Windows
 

@@ -1,21 +1,72 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Predix Sample App - Angular & Polymer</title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 
   <!--
-    Load theme files, apply default theme.
+    Load theme files, apply default theme. Also need to place any of our CSS variables in this section,
+    which isn't ideal, but Angular automatically applies <style> blocks without the `is="custom-style"` portion.
   -->
-  <link rel="import" href="assets/bower_components/px-theme/px-theme-styles.html">
-  <style include="px-theme-styles" is="custom-style"></style>
+  <link rel="import" href="assets/bower_components/px-theme/px-theme-styles.html" />
+  <style include="px-theme-styles" is="custom-style">
+    html,
+    body {
+      background-color: var(--px-base-background-color);
+    }
+    app-dashboard,
+    app-inbox {
+      background-color: var(--px-base-background-color);
+    }
+    app-layout {
+      background-color: var(--px-card-background-color);
+    }
+    px-inbox {
+      --px-inbox-height: 87vh;
+    }
+    @media(min-width: 720px) {
+      px-inbox {
+        --px-inbox-height: 84.7vh;
+      }
+    }
+    .context-browser {
+      background-color: var(--px-card-background-color);
+    }
+    .spine {
+      background-color: var(--px-card-background-color);
+    }
+    .gauge1 {
+      --px-gauge-fill-normal-color: #8098FF;
+    }
+    .gauge2 {
+      --px-gauge-fill-normal-color: #7BA662;
+    }
+    .gauge3 {
+      --px-gauge-fill-normal-color: #E081C9;
+    }
+    .gauge4 {
+      --px-gauge-fill-normal-color: #E9A24B;
+    }
+    px-vis-timeseries {
+      --px-vis-series-color-0: #8098FF;
+      --px-vis-series-color-1: #7BA662;
+      --px-vis-series-color-2: #E081C9;
+      --px-vis-series-color-3: #E9A24B;
+    }
+    .light-card {
+      --px-card-background-color: white;
+    }
+  </style>
 
 </head>
+
 <body>
+
   <app-root>Loading...</app-root>
 
   <!-- Polymer elements integration; follows the pattern at
@@ -28,7 +79,32 @@
     var Polymer = Polymer || {};
     Polymer.dom = 'shadow';
   </script>
-  <link rel="import" href="elements.html">
+  <link rel="import" href="assets/bower_components/polymer/polymer.html">
+
+  <link rel="import" href="assets/bower_components/paper-styles/color.html">
+  <link rel="import" href="assets/bower_components/paper-styles/typography.html">
+  <link rel="import" href="assets/bower_components/paper-checkbox/paper-checkbox.html">
+  <link rel="import" href="assets/bower_components/paper-button/paper-button.html">
+
+  <link rel="import" href="assets/bower_components/px-branding-bar/px-branding-bar.html" />
+  <link rel="import" href="assets/bower_components/px-app-nav/px-app-nav.html" />
+  <link rel="import" href="assets/bower_components/px-breadcrumbs/px-breadcrumbs.html" />
+  <link rel="import" href="assets/bower_components/px-context-browser/px-context-browser.html" />
+  <link rel="import" href="assets/bower_components/px-context-browser/px-context-browser-trigger.html" />
+  <link rel="import" href="assets/bower_components/px-dropdown/px-dropdown.html" />
+  <link rel="import" href="assets/bower_components/px-app-helpers/px-app-header/px-app-header.html" />
+  <link rel="import" href="assets/bower_components/px-simple-bar-chart/px-simple-bar-chart.html" />
+  <link rel="import" href="assets/bower_components/px-key-value-pair/px-key-value-pair.html" />
+  <link rel="import" href="assets/bower_components/px-gauge/px-gauge.html" />
+  <link rel="import" href="assets/bower_components/px-card/px-card.html" />
+  <link rel="import" href="assets/bower_components/px-vis-timeseries/px-vis-timeseries.html" />
+  <link rel="import" href="assets/bower_components/px-tabs/px-tabs.html" />
+  <link rel="import" href="assets/bower_components/iron-pages/iron-pages.html" />
+  <link rel="import" href="assets/bower_components/px-data-table/px-data-table.html" />
+  <link rel="import" href="assets/bower_components/px-inbox/px-inbox.html" />
+  <link rel="import" href="assets/bower_components/px-vis-radar/px-vis-radar.html" />
+  <link rel="import" href="assets/bower_components/px-vis-polar/px-vis-polar.html" />
 
 </body>
+
 </html>

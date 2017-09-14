@@ -1,4 +1,4 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -9,18 +9,17 @@ import { Router, ActivatedRoute } from '@angular/router';
     './sass/px-sample-app.scss'
   ],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
+  selectedRoute = ["dashboard"];
   switchRoute(e) {
     this.router.navigateByUrl('/' + e.detail.value);
   }
 
-  selectedRoute = ["dashboard"];
+  selectedContext = ["assets","a1"];
 
-  ngAfterViewInit() {
-  }
 }

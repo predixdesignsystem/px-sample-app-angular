@@ -58,5 +58,8 @@
     "px-spacing-design": "^1.0.0",
     "px-iconography-design": "^1.0.3",
     "px-shadows-design": "^1.0.2"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^0.7.24"
   }
 }

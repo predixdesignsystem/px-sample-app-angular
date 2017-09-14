@@ -5,10 +5,6 @@ import { HttpModule } from '@angular/http';
 import { RouterModule} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { TestComponent } from './test.component';
-import { PxTestComponent } from './pxtest.component';
-
-import { PaperCheckboxControlValueAccessorDirective, PolymerCheckedEventDirective } from './shared/paper-checkbox.cva';
 
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -18,12 +14,6 @@ import { LayoutComponent } from './layout/layout.component';
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent, PxTestComponent,
-
-    // enable bi-directional binding
-    PolymerCheckedEventDirective,
-    // enables ngModel compatibility
-    PaperCheckboxControlValueAccessorDirective,
     DashboardComponent,
     InboxComponent,
     LayoutComponent
