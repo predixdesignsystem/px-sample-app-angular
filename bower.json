@@ -57,5 +57,6 @@
   },
   "resolutions": {
     "webcomponentsjs": "^0.7.24"
-  }
+  },
+  "license": "Apache-2.0"
 }
